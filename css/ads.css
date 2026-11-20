@@ -1,0 +1,127 @@
+.ticker {
+  right: calc(24px + var(--ad-gap, 0px));
+}
+.ticker .tier.tier-in { animation: tierIn 0.38s cubic-bezier(0.16, 0.84, 0.3, 1) both; }
+.ticker .tier.tier-out {
+  animation: tierOut 0.32s ease both;
+  pointer-events: none;
+}
+@keyframes tierIn {
+  from { opacity: 0; translate: -48px 0; max-height: 0; }
+  to { opacity: 1; translate: 0 0; max-height: 72px; }
+}
+@keyframes tierOut {
+  to { opacity: 0; translate: 56px 0; max-height: 0; }
+}
+
+.ad {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  width: 470px;
+  z-index: 6;
+  color: var(--ad-ink, #fff);
+  filter: drop-shadow(8px 12px 0 rgba(0, 0, 0, 0.55));
+}
+.ad-owner {
+  position: absolute;
+  left: 22px;
+  bottom: calc(100% - 28px);
+  width: 168px;
+  height: 190px;
+  object-fit: contain;
+  object-position: bottom center;
+  z-index: 2;
+  filter: drop-shadow(0 10px 0 rgba(0, 0, 0, 0.4));
+}
+.ad-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 168px;
+  padding: 18px 18px 14px 20px;
+  background:
+    repeating-linear-gradient(-58deg, rgba(0, 0, 0, 0.16) 0 8px, transparent 8px 16px),
+    linear-gradient(155deg, color-mix(in srgb, var(--ad, #e10600) 55%, #000), var(--ad, #e10600) 55%, #fff 140%);
+  clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 22px) 100%, 0 100%);
+}
+.ad-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.42) 48%, transparent 66%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.ad-top { display: flex; align-items: center; gap: 12px; min-height: 72px; }
+.ad-logo {
+  width: 132px;
+  height: 84px;
+  object-fit: contain;
+  background: #111;
+  padding: 6px;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+.ad-titles { min-width: 0; }
+.ad-biz {
+  font-family: Anton, "Oswald", Impact, sans-serif;
+  font-style: italic;
+  font-size: 34px;
+  line-height: 0.9;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.ad-who {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 10px;
+  background: #111;
+  color: #fff;
+  font-family: Oswald, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 14px;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+.ad-phone {
+  margin-top: 8px;
+  font-family: Anton, Impact, sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+.ad-address {
+  margin-top: 6px;
+  font-family: Oswald, sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  max-width: 36ch;
+}
+.ad-play .ad-owner { animation: ownerPop 0.5s cubic-bezier(0.16, 0.84, 0.28, 1.08) both; }
+.ad-play .ad-panel { animation: adSlash 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.ad-play .ad-panel::after { animation: adSweep 1.6s linear infinite; }
+.ad-play .ad-line { animation: adLine 0.36s ease both; }
+.ad-play .ad-line:nth-child(1) { animation-delay: 0.12s; }
+.ad-play .ad-line:nth-child(2) { animation-delay: 0.2s; }
+.ad-play .ad-phone { animation-delay: 0.28s; }
+.ad-play .ad-address { animation-delay: 0.36s; }
+@keyframes ownerPop {
+  from { opacity: 0; translate: 0 46px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes adSlash {
+  from { opacity: 0; translate: 80px 0; skew: 8deg; }
+  to { opacity: 1; translate: 0 0; skew: 0deg; }
+}
+@keyframes adLine {
+  from { opacity: 0; translate: 28px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes adSweep {
+  from { transform: translateX(-130%); }
+  to { transform: translateX(130%); }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex" />
+  <title>Kabaddi Overlay</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:ital,wght@1,500;1,600;1,700&family=Barlow+Condensed:ital,wght@0,700;0,800;1,700;1,800&family=Noto+Sans+Devanagari:wght@600;700&family=Noto+Sans+Gurmukhi:wght@600;700;800&family=Outfit:wght@500;600;700;800&family=Teko:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/overlay.css" />
+  <link rel="stylesheet" href="css/v3.css" />
+  <link rel="stylesheet" href="css/v4.css" />
+  <link rel="stylesheet" href="css/ads.css" />
+  <link rel="stylesheet" href="css/v6-ticker.css" />
+  <link rel="stylesheet" href="css/ekf.css" />
+  <link rel="stylesheet" href="css/designs.css" />
+  <script>
+    if (new URLSearchParams(location.search).get("preview") === "1") {
+      document.documentElement.classList.add("preview");
+    }
+  </script>
+</head>
+<body>
+  <div class="arena" aria-hidden="true">
+    <div class="glow"></div>
+    <div class="ring"></div>
+  </div>
+  <div id="stage">
+    <img id="logo" class="corner-logo" alt="" hidden />
+    <div id="sponsor" class="sponsor" hidden>
+      <img id="sponsorImg" alt="" />
+      <span id="sponsorLabel"></span>
+    </div>
+    <div id="board" hidden></div>
+    <div id="stats" class="stats" hidden></div>
+    <div id="pcard" class="pcard" hidden></div>
+    <div id="standings" class="standings" hidden></div>
+    <div id="lineup" class="lineup" hidden></div>
+    <div id="top5" class="top5" hidden></div>
+    <div id="result" class="result" hidden></div>
+    <div id="bigscore" class="bigscore" hidden></div>
+    <div id="analysis" class="analysis" hidden></div>
+    <div id="intro" class="intro" hidden></div>
+    <div id="vs" class="vs-card" hidden></div>
+    <div id="ticker" class="ticker" hidden></div>
+    <div id="ad" class="ad" hidden></div>
+    <div id="waitPlate" class="wait-plate">
+      <div class="wait-kicker">PUNJAB STYLE KABADDI</div>
+      <div class="wait-title" id="waitTitle">Waiting for match</div>
+      <div class="wait-sub" id="waitSub">Connecting…</div>
+    </div>
+  </div>
+  <script src="vendor/mqtt.min.js"></script>
+  <script type="module" src="js/overlay.js"></script>
+</body>
+</html>

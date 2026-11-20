@@ -1,0 +1,348 @@
+/* Aggressive broadcast skin. Keeps the v3 sizes and placement. */
+
+:root {
+  --display: "Oswald", "Bebas Neue", "Barlow Condensed", Impact, sans-serif;
+  --num: Anton, "Bebas Neue", Impact, sans-serif;
+}
+
+.gfx-in { animation: slamIn 0.42s cubic-bezier(0.16, 0.84, 0.32, 1.1) both; }
+.gfx-out { animation: slamOut 0.32s ease both; }
+@keyframes slamIn {
+  0% { opacity: 0; translate: -72px 0; skew: -12deg; filter: contrast(1.6) saturate(1.4); }
+  55% { opacity: 1; translate: 10px 0; skew: 3deg; }
+  100% { opacity: 1; translate: 0 0; skew: 0deg; filter: none; }
+}
+@keyframes slamOut {
+  to { opacity: 0; translate: 64px 0; skew: 8deg; filter: contrast(1.5); }
+}
+
+.scorebug {
+  height: 92px;
+  background: transparent;
+  filter: drop-shadow(4px 10px 0 #000) drop-shadow(0 0 18px rgba(225, 6, 0, 0.35));
+}
+.bug-wing { height: 92px; position: relative; overflow: hidden; }
+.bug-wing.team-a {
+  clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+  background-image:
+    repeating-linear-gradient(-58deg, rgba(0, 0, 0, 0.22) 0 7px, transparent 7px 14px),
+    linear-gradient(105deg, #3a0000, var(--team-a) 42%, #ff5a4a);
+  padding-right: 36px;
+}
+.bug-wing.team-b {
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+  background-image:
+    repeating-linear-gradient(-58deg, rgba(0, 0, 0, 0.22) 0 7px, transparent 7px 14px),
+    linear-gradient(255deg, #04122e, var(--team-b) 48%, #7eb6ff);
+  padding-left: 36px;
+}
+.bug-name {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.55);
+}
+.bug-sub {
+  font-family: var(--display);
+  font-style: italic;
+  background: linear-gradient(90deg, #fff, #d9d9d9);
+  color: #111;
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+}
+.bug-mid {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #2b2b2b, #070707 55%, #1a1a1a);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.bug-scores .score-num {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 58px;
+  letter-spacing: 0.02em;
+  text-shadow: 2px 3px 0 #000, 0 0 14px rgba(255, 255, 255, 0.35);
+}
+.bug-cut {
+  background: linear-gradient(160deg, #fff 0%, #b9b9b9 40%, #fff 55%, #6d6d6d 100%);
+  color: #111;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 700;
+  clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
+}
+.bug-status {
+  font-family: var(--display);
+  font-style: italic;
+  background: linear-gradient(90deg, #ffe14a, #fff 45%, #c9a227);
+  color: #111;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  box-shadow: 0 0 12px rgba(255, 214, 74, 0.65);
+}
+.crest {
+  background:
+    radial-gradient(circle at 30% 30%, #fff, #cfcfcf 45%, #8d8d8d);
+  border-color: #111;
+  font-family: var(--num);
+  font-style: italic;
+}
+
+/* Sheen: a hard light slash racing across the wings. */
+.motion-sheen .bug-wing::after {
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.85) 48%, transparent 64%);
+  animation: sheen 1.7s linear infinite;
+}
+
+/* Pulse: still slashed, but the edges strobe. */
+.motion-pulse .scorebug { filter: none; gap: 0; }
+.motion-pulse .bug-wing {
+  border-radius: 0;
+  clip-path: polygon(0 8px, 100% 0, 100% calc(100% - 8px), 0 100%);
+  animation: edgeStrobe 0.7s steps(2, end) infinite;
+}
+.motion-pulse .bug-wing.team-b { clip-path: polygon(0 0, 100% 8px, 100% 100%, 0 calc(100% - 8px)); }
+.motion-pulse .bug-scores .score-num { animation: scoreFlash 0.7s steps(2, end) infinite; }
+@keyframes edgeStrobe {
+  0%, 100% { box-shadow: inset 0 0 0 2px #fff, 0 0 16px var(--team-a); }
+  50% { box-shadow: inset 0 0 0 2px #ffe14a, 0 0 26px var(--team-b); }
+}
+@keyframes scoreFlash {
+  50% { color: #ffe14a; text-shadow: 0 0 16px #ffe14a; }
+}
+
+/* Sweep: moving hazard stripes, deeper chevrons. */
+.motion-sweep .bug-wing.team-a,
+.motion-sweep .bug-wing.team-b {
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.28) 0 10px, transparent 10px 20px),
+    linear-gradient(100deg, #111, var(--team-a));
+  background-size: 160px 100%, auto;
+  animation: sweepStripes 0.55s linear infinite;
+}
+.motion-sweep .bug-wing.team-b {
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.28) 0 10px, transparent 10px 20px),
+    linear-gradient(260deg, #111, var(--team-b));
+}
+.motion-sweep .bug-wing.team-a { clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%); }
+.motion-sweep .bug-wing.team-b { clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%); }
+
+/* Slam: separated blades that keep a skew. */
+.motion-slam .scorebug { gap: 14px; filter: none; }
+.motion-slam .bug-wing { clip-path: none; }
+.motion-slam .bug-wing.team-a { transform: skewX(-10deg); animation: slamL 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+.motion-slam .bug-wing.team-b { transform: skewX(10deg); animation: slamR 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+.motion-slam .bug-mid { transform: skewX(-6deg); }
+
+/* 3D: thicker extrusion, still inside the left third. */
+.motion-depth .scorebug {
+  transform: rotateX(14deg) rotateY(-18deg);
+  animation: depthYaw 6s ease-in-out infinite;
+}
+.motion-depth .bug-wing.team-a,
+.motion-depth .bug-wing.team-b {
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -14px 12px rgba(0, 0, 0, 0.45),
+    0 14px 0 #000;
+}
+
+/* Ticker: slashed metal segments, not flat black rows. */
+.ticker {
+  left: 24px;
+  right: 24px;
+  bottom: 18px;
+  gap: 7px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  filter: drop-shadow(0 14px 0 rgba(0, 0, 0, 0.45));
+}
+.ticker .tier {
+  position: relative;
+  height: 46px;
+  min-height: 46px;
+  overflow: hidden;
+  border: 0;
+  color: #fff;
+  padding-left: 14px;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 100%, 16px 100%);
+  background-image:
+    linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.28) 48%, transparent 60%),
+    repeating-linear-gradient(-55deg, rgba(255, 255, 255, 0.06) 0 8px, transparent 8px 16px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 2px, transparent 2px 4px),
+    linear-gradient(90deg, #141414, #3c3c3c 42%, #101010 70%, #2a2a2a);
+  background-size: 220% 100%, auto, auto, auto;
+  animation: tickerMetal 2.2s linear infinite;
+}
+.ticker .tier.main { height: 62px; min-height: 62px; }
+.ticker .tier.top { clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%); padding-left: 10px; }
+.ticker .tier::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  background: linear-gradient(#ffe14a, #fff, #c9a227);
+}
+.ticker .badge,
+.ticker .live {
+  position: relative;
+  z-index: 1;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  padding: 0 18px 0 22px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+.ticker .live {
+  background: linear-gradient(180deg, #ff4d3a, #b00000 70%, #6d0000);
+  color: #fff;
+  animation: liveBurn 0.8s ease-in-out infinite;
+  text-shadow: 0 0 8px #fff;
+}
+.ticker .live i {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  box-shadow: 0 0 10px #fff;
+  animation: livePulse 0.8s ease-out infinite;
+}
+.ticker .badge { background: linear-gradient(180deg, #fff, #cfcfcf); color: #111; }
+.ticker .badge-message { background: linear-gradient(180deg, #ff5a4a, var(--team-a)); color: #fff; }
+.ticker .badge-next { background: linear-gradient(180deg, #7eb6ff, var(--team-b)); color: #fff; }
+.ticker .marquee,
+.ticker .marquee-track,
+.ticker .marquee-chunk {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ticker .sep {
+  display: inline-block;
+  margin: 0 18px;
+  color: #ffe14a;
+  font-style: normal;
+  text-shadow: 0 0 8px #ffe14a;
+}
+.ticker .clock-box {
+  position: relative;
+  z-index: 1;
+  min-width: 148px;
+  margin-left: 0;
+  padding: 0 16px 0 22px;
+  background:
+    linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%),
+    linear-gradient(160deg, #fff 0%, #d5d5d5 38%, #fff 52%, #8e8e8e 100%);
+  background-size: 220% 100%, auto;
+  animation: tickerMetal 2.6s linear infinite;
+  clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%);
+  color: #111;
+}
+.ticker .clock-box strong {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 28px;
+  letter-spacing: 0.03em;
+  color: #111;
+  line-height: 0.85;
+}
+.ticker .clock-box em {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #3a0000;
+}
+@keyframes tickerMetal {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: 220% 0, 0 0, 0 0, 0 0; }
+}
+@keyframes liveBurn {
+  0%, 100% { filter: brightness(1); box-shadow: inset 0 0 0 transparent; }
+  50% { filter: brightness(1.35); box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.45); }
+}
+
+.big-side.team-a,
+.big-side.team-b {
+  background-image:
+    repeating-linear-gradient(-58deg, rgba(0, 0, 0, 0.2) 0 10px, transparent 10px 20px),
+    linear-gradient(160deg, #2a0000, var(--team-a));
+}
+.big-side.team-b {
+  background-image:
+    repeating-linear-gradient(-58deg, rgba(0, 0, 0, 0.2) 0 10px, transparent 10px 20px),
+    linear-gradient(200deg, #04122e, var(--team-b));
+}
+.big-side.team-a { clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
+.big-side.team-b { clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
+.big-team, .big-cap, .big-title, .big-mark {
+  font-family: var(--display);
+  font-style: italic;
+  text-transform: uppercase;
+}
+.big-score {
+  font-family: var(--num);
+  font-style: italic;
+  font-size: 148px;
+  text-shadow: 4px 6px 0 rgba(0, 0, 0, 0.45);
+}
+.big-mid {
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #2a2a2a, #050505);
+}
+.big-photo { clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%); border: 2px solid #fff; }
+
+.analysis-card {
+  background:
+    repeating-linear-gradient(-58deg, rgba(255, 255, 255, 0.03) 0 10px, transparent 10px 20px),
+    #070707;
+  border: 0;
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+  box-shadow: 10px 12px 0 #000, 0 0 0 2px #fff;
+}
+.analysis-title, .an-row, .an-row.head {
+  font-family: var(--display);
+  font-style: italic;
+  text-transform: uppercase;
+}
+.analysis-title { font-size: 54px; letter-spacing: 0.06em; }
+.an-row b { font-family: var(--num); font-style: italic; font-size: 26px; }
+
+.top5-col, .vcol {
+  clip-path: polygon(0 22px, 100% 0, 100% 100%, 0 calc(100% - 16px));
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.55);
+}
+.top5-col .v-first, .v-first {
+  font-family: var(--num);
+  font-style: italic;
+  text-transform: uppercase;
+}
+.top5-frame { gap: 16px; }
+.top5-foot {
+  position: relative;
+  z-index: 3;
+  margin-top: 8px;
+  background: linear-gradient(90deg, #111, #333 40%, #111);
+  border: 0;
+  clip-path: polygon(18px 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+}
+.top5-foot strong, .top5-num {
+  font-family: var(--num);
+  font-style: italic;
+}
+.sponsor {
+  border-radius: 0;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  background: #0b0b0d;
+  border: 0;
+  box-shadow: 6px 8px 0 #000;
+}

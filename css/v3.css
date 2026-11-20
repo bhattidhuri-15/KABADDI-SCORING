@@ -1,0 +1,258 @@
+/* Compact broadcast layer. Loaded after overlay.css. */
+
+.gfx-in { animation: gfxIn 0.48s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.gfx-out { animation: gfxOut 0.36s ease both; }
+@keyframes gfxIn { from { opacity: 0; scale: 0.96; } to { opacity: 1; scale: 1; } }
+@keyframes gfxOut { from { opacity: 1; scale: 1; } to { opacity: 0; scale: 0.98; } }
+
+.board,
+.board.pos-top-left,
+.board.pos-top-center,
+.board.pos-top-right,
+.board.pos-bottom-left,
+.board.pos-bottom-center,
+.board.pos-bottom-right,
+.board.layout-corner,
+.board.layout-stacked {
+  width: 640px;
+  max-width: 640px;
+}
+.board.pos-top-left { top: 28px; left: 36px; }
+
+.scorebug {
+  width: 640px;
+  min-width: 0;
+  height: 84px;
+  grid-template-columns: 1fr 132px 1fr;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.4));
+}
+.bug-wing { min-height: 0; height: 84px; }
+.bug-name { font-size: 26px; letter-spacing: 0.02em; }
+.bug-sub { font-size: 12px; margin-top: 4px; padding: 2px 6px; }
+.crest { width: 42px; height: 42px; margin: 12px 8px; font-size: 20px; border-width: 2px; }
+.bug-scores .score-num { font-size: 46px; line-height: 0.85; }
+.bug-cut { width: 36px; height: 44px; font-size: 12px; }
+.bug-status {
+  max-width: none;
+  overflow: visible;
+  text-overflow: unset;
+  bottom: -14px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.bug-copy .dots b,
+.bug-copy .dots .more { min-width: 16px; height: 16px; font-size: 10px; }
+.stack-bars { width: 640px; }
+.stack-bar { min-height: 64px; }
+.stack-points { font-size: 42px; }
+.scorebug.compact { width: 520px; grid-template-columns: 1fr 108px 1fr; }
+.board.layout-corner { width: 520px; max-width: 520px; }
+.board.layout-corner .scorebug { width: 520px; }
+
+/* Sheen: Premier League bar, one moving gloss. */
+.motion-sheen .scorebug { border-radius: 2px; }
+.motion-sheen .bug-wing::after { animation-duration: 2.8s; }
+
+/* Pulse: soft pills and a living glow, no hard cuts. */
+.motion-pulse .scorebug {
+  height: auto;
+  filter: none;
+  gap: 8px;
+  background: transparent;
+}
+.motion-pulse .bug-wing {
+  height: 78px;
+  border-radius: 40px;
+  clip-path: none;
+  padding: 0 10px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 10px 24px rgba(0, 0, 0, 0.35);
+  animation: glowPulse 1.6s ease-in-out infinite;
+}
+.motion-pulse .bug-mid {
+  border-radius: 18px;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--team-a) 55%, transparent);
+}
+.motion-pulse .bug-status { border-radius: 999px; }
+
+/* Sweep: chevrons and always-visible stripes. */
+.motion-sweep .bug-wing.team-a { clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
+.motion-sweep .bug-wing.team-b { clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
+.motion-sweep .bug-cut { animation: spinCut 1.4s linear infinite; }
+
+/* Slam: two separate slabs with a gap. */
+.motion-slam .scorebug { gap: 10px; background: transparent; filter: none; }
+.motion-slam .bug-wing { clip-path: none; border-radius: 4px; }
+.motion-slam .bug-mid { border-radius: 4px; }
+
+/* 3D: shallow extrusion that stays inside the left third. */
+.motion-depth .board { perspective: 900px; }
+.motion-depth .scorebug {
+  filter: none;
+  transform: rotateX(10deg) rotateY(-14deg);
+  transform-style: preserve-3d;
+  animation: depthYaw 7s ease-in-out infinite;
+}
+.motion-depth .bug-wing.team-a,
+.motion-depth .bug-wing.team-b {
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.7), inset 0 -8px 10px rgba(0, 0, 0, 0.35), 0 10px 0 rgba(0, 0, 0, 0.55);
+}
+
+.corner-logo.logo-right {
+  top: 24px;
+  right: 32px;
+  left: auto;
+  max-width: 150px;
+  max-height: 84px;
+}
+
+.sponsor {
+  top: 118px;
+  right: 32px;
+  bottom: auto;
+  width: 160px;
+  padding: 6px;
+  border-radius: 12px;
+}
+.sponsor img { height: 88px; transition: opacity 0.35s ease; }
+.sponsor img.is-fading { opacity: 0; }
+
+.ticker {
+  left: 32px;
+  right: 32px;
+  bottom: 24px;
+  gap: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #070708;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  filter: none;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+.ticker .tier {
+  min-height: 40px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: stretch;
+  background: var(--ticker-bg, #0c0c0e);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+.ticker .tier.main {
+  min-height: 48px;
+  height: 48px;
+  grid-template-columns: max-content max-content minmax(0, 1fr) max-content minmax(0, 1fr) max-content;
+}
+.ticker .badge,
+.ticker .live {
+  width: auto;
+  max-width: none;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: nowrap;
+  padding: 0 16px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+}
+.ticker .marquee { min-width: 0; }
+.ticker .clock-box {
+  min-width: 118px;
+  height: 100%;
+  margin: 0;
+  padding: 0 12px;
+  background: #fff;
+  color: #111;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+.ticker .clock-box strong { font-size: 18px; line-height: 1; color: #111; }
+.ticker .clock-box em { font-size: 10px; letter-spacing: 0.12em; font-style: normal; color: #333; }
+
+.bigscore, .analysis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 70px;
+  bottom: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.big-frame {
+  display: grid;
+  grid-template-columns: 1fr 220px 1fr;
+  width: min(1500px, calc(100% - 80px));
+  min-height: 460px;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
+}
+.big-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  padding: 28px 20px;
+}
+.big-side.team-a {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--team-a) 80%, #000), var(--team-a));
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+}
+.big-side.team-b {
+  background: linear-gradient(200deg, color-mix(in srgb, var(--team-b) 80%, #000), var(--team-b));
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+}
+.big-photo { width: 180px; height: 210px; object-fit: cover; object-position: top; background: rgba(0, 0, 0, 0.25); }
+.big-photo-empty {
+  display: grid;
+  place-items: center;
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 92px;
+}
+.big-team { font-family: "Barlow Condensed", Impact, sans-serif; font-size: 54px; letter-spacing: 0.04em; line-height: 0.9; }
+.big-score { font-family: "Barlow Condensed", Impact, sans-serif; font-size: 120px; line-height: 0.8; }
+.big-cap { font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 16px; }
+.big-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #0b0b0d;
+  color: #fff;
+}
+.big-logo { width: 150px; height: 90px; object-fit: contain; }
+.big-mark { font-family: "Barlow Condensed", Impact, sans-serif; font-size: 72px; }
+.big-title { font-size: 14px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; }
+
+.analysis-card {
+  width: min(980px, calc(100% - 80px));
+  background: #0c0c0e;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 22px 26px 16px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+.analysis-title {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.08em;
+}
+.analysis-sub { opacity: 0.75; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.an-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  min-height: 42px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  font-weight: 800;
+}
+.an-row.head { border-top: 0; font-family: "Barlow Condensed", Impact, sans-serif; font-size: 28px; }
+.an-row b:nth-child(2) { color: var(--team-a); }
+.an-row b:nth-child(3) { color: var(--team-b); text-align: right; }

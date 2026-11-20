@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#110e0b" />
+  <title>Kabaddi Control</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600;700&family=Noto+Sans+Gurmukhi:wght@600;700;800&family=Outfit:wght@500;600;700;800&family=Teko:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/control.css" />
+</head>
+<body>
+  <div id="bad" class="bad" hidden>
+    <div class="panel">
+      <p class="eyebrow">Kabaddi control</p>
+      <h1>Link is not complete</h1>
+      <p class="muted">This page needs a match id. Go to the home page and create a match.</p>
+      <p><a class="btn primary home" href="./">Go to home</a></p>
+    </div>
+  </div>
+
+  <div id="gate" class="gate" hidden>
+    <form class="panel" id="pinForm">
+      <p class="eyebrow">Control lock</p>
+      <h1>Enter the PIN</h1>
+      <p class="muted">This match is locked. Use the PIN from the control link.</p>
+      <label><span>PIN</span><input id="pinInput" inputmode="numeric" maxlength="8" autocomplete="off" /></label>
+      <p id="pinError" class="error" hidden>Wrong PIN. Try again.</p>
+      <button class="btn primary wide" type="submit">Unlock</button>
+    </form>
+  </div>
+
+  <div id="boot" class="boot">
+    <div class="panel">
+      <p class="eyebrow">Kabaddi control</p>
+      <h1 id="bootTitle">Connecting…</h1>
+      <p class="muted" id="bootText">Looking for the live match.</p>
+      <button type="button" class="btn primary wide" id="startEmpty" hidden>Start empty match</button>
+      <p><a class="home" href="./">Home</a></p>
+    </div>
+  </div>
+
+  <div id="app" class="screen" hidden>
+    <header class="top">
+      <div class="top-row">
+        <div>
+          <p class="eyebrow">Punjab style</p>
+          <h1 id="heading">Match</h1>
+        </div>
+        <div id="status" class="status">Connecting…</div>
+      </div>
+      <div class="strip">
+        <div class="strip-team"><span id="stripNameA">Team A</span><b id="stripScoreA">0</b></div>
+        <div class="strip-mid" id="stripTitle">Match</div>
+        <div class="strip-team"><span id="stripNameB">Team B</span><b id="stripScoreB">0</b></div>
+      </div>
+      <nav class="tabs">
+        <button type="button" data-tab="score" class="on">Score</button>
+        <button type="button" data-tab="lineup">Lineup</button>
+        <button type="button" data-tab="top5">Top 5</button>
+        <button type="button" data-tab="ticker">Ticker</button>
+        <button type="button" data-tab="design">Board</button>
+        <button type="button" data-tab="colours">Colours</button>
+        <button type="button" data-tab="result">Result</button>
+        <button type="button" data-tab="analysis">Analysis</button>
+        <button type="button" data-tab="logos">Logos</button>
+        <button type="button" data-tab="ads">Ads</button>
+        <button type="button" data-tab="settings">Settings</button>
+      </nav>
+    </header>
+    <p id="checking" class="checking">Checking the live match…</p>
+
+    <main>
+      <section id="tab-score" class="tab-panel">
+        <section class="card">
+          <label><span>Tournament name</span><input id="tournament" maxlength="48" /></label>
+          <label><span>Match title on the board</span><input id="matchTitle" maxlength="70" placeholder="Kabaddi open final match" /></label>
+          <p class="score-label">Show on stream</p>
+          <div class="choice" id="scenes">
+            <button type="button" data-scene="score">Score</button>
+            <button type="button" data-scene="big">Big score</button>
+            <button type="button" data-scene="lineup">Lineup</button>
+            <button type="button" data-scene="stats">Stats</button>
+            <button type="button" data-scene="card">Raider</button>
+            <button type="button" data-scene="standings">Top list</button>
+            <button type="button" data-scene="top5">Top 5</button>
+            <button type="button" data-scene="result">Result</button>
+            <button type="button" data-scene="analysis">Analysis</button>
+            <button type="button" data-scene="intro">Title card</button>
+            <button type="button" data-scene="vs">Match intro</button>
+            <button type="button" data-scene="clear">Clear</button>
+          </div>
+          <p class="hint">Only one graphic is on at a time. Score brings the ticker with it. Every other graphic hides the scoreboard and the ticker. Each one slides in and slides out.</p>
+        </section>
+        <div class="teams">
+          <article class="card team-card">
+            <h2>Team A</h2>
+            <label><span>Name</span><input id="nameA" maxlength="24" /></label>
+            <label><span>Team shield / logo</span><input id="logoA" type="file" accept="image/*" /></label>
+            <label><span>Captain</span><input id="capA" maxlength="24" /></label>
+            <label><span>Captain photo</span><input id="capFileA" type="file" accept="image/*" /></label>
+            <img id="capPreviewA" class="preview-img" alt="" hidden />
+            <p class="score-label">Score</p>
+            <p class="big" id="scoreA">0</p>
+            <div class="points">
+              <button type="button" id="plusA" data-act="score" data-team="A" data-n="1">+ Point</button>
+              <button type="button" id="minusA" class="minus" data-act="score" data-team="A" data-n="-1">− Point</button>
+            </div>
+            <p class="score-label">Raiders <b id="raidersA">0</b></p>
+            <div class="events">
+              <button type="button" data-act="raiders" data-team="A" data-n="1">+ Raider</button>
+              <button type="button" data-act="raiders" data-team="A" data-n="-1">− Raider</button>
+            </div>
+            <div class="events">
+              <button type="button" data-act="count" data-key="raids" data-team="A" data-n="1">+ Raid</button>
+              <button type="button" data-act="count" data-key="stops" data-team="A" data-n="1">+ Stop</button>
+            </div>
+          </article>
+          <article class="card team-card">
+            <h2>Team B</h2>
+            <label><span>Name</span><input id="nameB" maxlength="24" /></label>
+            <label><span>Team shield / logo</span><input id="logoB" type="file" accept="image/*" /></label>
+            <label><span>Captain</span><input id="capB" maxlength="24" /></label>
+            <label><span>Captain photo</span><input id="capFileB" type="file" accept="image/*" /></label>
+            <img id="capPreviewB" class="preview-img" alt="" hidden />
+            <p class="score-label">Score</p>
+            <p class="big" id="scoreB">0</p>
+            <div class="points">
+              <button type="button" id="plusB" data-act="score" data-team="B" data-n="1">+ Point</button>
+              <button type="button" id="minusB" class="minus" data-act="score" data-team="B" data-n="-1">− Point</button>
+            </div>
+            <p class="score-label">Raiders <b id="raidersB">0</b></p>
+            <div class="events">
+              <button type="button" data-act="raiders" data-team="B" data-n="1">+ Raider</button>
+              <button type="button" data-act="raiders" data-team="B" data-n="-1">− Raider</button>
+            </div>
+            <div class="events">
+              <button type="button" data-act="count" data-key="raids" data-team="B" data-n="1">+ Raid</button>
+              <button type="button" data-act="count" data-key="stops" data-team="B" data-n="1">+ Stop</button>
+            </div>
+          </article>
+        </div>
+        <section class="card">
+          <label class="check"><input id="statsShow" type="checkbox" /> Show match stats</label>
+          <label class="check"><input id="cardShow" type="checkbox" /> Show raider lower third</label>
+          <label class="check"><input id="standShow" type="checkbox" /> Show top raiders and stoppers</label>
+          <p class="hint">The first point of the match is 1.5. Every point after that is 1. If a score is 1.5, minus takes it back to 0.</p>
+        </section>
+      </section>
+
+      <section id="tab-lineup" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="lineupShow" type="checkbox" /> Show team lineup on the stream</label>
+          <label class="check"><input id="showNames" type="checkbox" /> Show raider and Jaafi names on the scoreboard</label>
+          <p class="hint">Add players for each team. Role can be Raider or Jaafi (stopper). Tap “Raiding now” or “Stopping now” to put that name on the scoreboard.</p>
+        </section>
+        <div class="teams">
+          <section class="card" id="playersA"></section>
+          <section class="card" id="playersB"></section>
+        </div>
+      </section>
+
+      <section id="tab-top5" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="top5Show" type="checkbox" /> Show Top 5 on the stream</label>
+          <label><span>Title</span><input id="top5Title" maxlength="32" /></label>
+          <label><span>Subtitle</span><input id="top5Sub" maxlength="40" /></label>
+          <p class="hint">Five columns slide up one by one. For each player, type the first name, surname, team, and stat, then upload a photo. Upload again to replace it. The picture is shrunk and sent with the match.</p>
+          <div id="top5Slots"></div>
+        </section>
+      </section>
+
+      <section id="tab-ticker" class="tab-panel" hidden>
+        <section class="card">
+          <p class="score-label">Ticker style</p>
+          <div class="choice">
+            <button type="button" data-ticker-style="a">Light bar</button>
+            <button type="button" data-ticker-style="b">Night bar</button>
+          </div>
+          <p class="hint">Light bar is a tall white strip. Night bar is the same layout in black with white type. Both keep the host on the left and the advert on the right.</p>
+          <label><span>Host or commentator name</span><input id="hostName" maxlength="28" placeholder="Optional" /></label>
+          <label><span>Host photo (PNG can be transparent)</span><input id="hostFile" type="file" accept="image/*" /></label>
+          <img id="hostPreview" class="preview-img" alt="" hidden />
+          <button type="button" class="btn" id="hostClear">Remove host</button>
+        </section>
+        <section class="card info-switch">
+          <p class="eyebrow">INFO row</p>
+          <p class="hint">The top line of the ticker. Hide or show it on its own. The message row and the note row stay as they are.</p>
+          <button type="button" id="topToggle" class="big-toggle">INFO hidden</button>
+          <label><span>INFO badge</span><input id="topTitle" maxlength="22" /></label>
+          <label><span>INFO scrolling text</span><textarea id="topText" maxlength="180"></textarea></label>
+        </section>
+        <section class="card">
+          <label class="check"><input id="mainOn" type="checkbox" /> MESSAGE row</label>
+          <label><span>Message badge</span><input id="mainTitle" maxlength="22" /></label>
+          <label><span>Message text</span><textarea id="mainText" maxlength="180" placeholder="Jai Baba"></textarea></label>
+          <label><span>Next matches badge</span><input id="nextTitle" maxlength="22" /></label>
+          <label><span>Next matches text</span><textarea id="nextText" maxlength="180" placeholder="Round 1 -> Team A (WIN) vs Team B"></textarea></label>
+        </section>
+        <section class="card">
+          <label class="check"><input id="bottomOn" type="checkbox" /> NOTE row</label>
+          <label><span>Bottom badge</span><input id="bottomTitle" maxlength="22" /></label>
+          <label><span>Bottom scrolling text</span><textarea id="bottomText" maxlength="180"></textarea></label>
+          <label><span>Scroll speed</span><input id="speed" type="range" min="1" max="10" /></label>
+          <p class="hint">The clock on the right uses the time zone in Settings. Default is London time. You can change it.</p>
+        </section>
+      </section>
+
+      <section id="tab-design" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="boardShow" type="checkbox" /> Show scoreboard</label>
+          <p class="score-label">Layout</p>
+          <div class="choice" id="layouts"></div>
+          <p class="score-label">Board position</p>
+          <div class="choice" id="positions"></div>
+          <p class="hint">Bottom positions stay above the ticker. The logo stays on the left, above the scoreboard.</p>
+          <p class="score-label">Animated theme</p>
+          <div class="choice" id="motions"></div>
+          <p class="hint">Sheen, Pulse, Sweep, and Slam are different motions. 3D tilts the board and flips the scores. Colours stay whatever you set below or on the Colours tab.</p>
+          <p class="score-label">Colour theme</p>
+          <div class="choice" id="themes"></div>
+        </section>
+      </section>
+
+      <section id="tab-colours" class="tab-panel" hidden>
+        <section class="card">
+          <label><span>Theme preset</span><select id="themePreset"></select></label>
+          <button type="button" class="btn" id="resetColours">Reset to default</button>
+          <p class="hint">A preset fills the colours below. Then change any colour. It updates the stream straight away.</p>
+          <p class="score-label">Quick swatches</p>
+          <div class="swatches" id="swatches"></div>
+          <div id="colourFields"></div>
+        </section>
+      </section>
+
+      <section id="tab-result" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="resultShow" type="checkbox" /> Show result on the stream</label>
+          <p class="score-label">Mode</p>
+          <div class="choice" id="resultModes">
+            <button type="button" data-mode="normal">Normal</button>
+            <button type="button" data-mode="hold">On hold</button>
+            <button type="button" data-mode="final">Final</button>
+          </div>
+          <p class="score-label">Winner</p>
+          <div class="choice">
+            <button type="button" id="winA" data-act="winner" data-team="A">Team A wins</button>
+            <button type="button" id="winB" data-act="winner" data-team="B">Team B wins</button>
+          </div>
+          <p class="hint">Normal shows WINNER / ਜੇਤੂ and ELIMINATED / ਬਾਹਰ. Hold shows “Match result on hold”. Final shows the champion, prize, and player of the match.</p>
+          <label><span>Winning prize</span><input id="prize" maxlength="60" placeholder="Gold cup" /></label>
+          <label><span>Player of the match</span><input id="player" maxlength="40" /></label>
+        </section>
+      </section>
+
+      <section id="tab-analysis" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="analysisShow" type="checkbox" /> Show team analysis</label>
+          <p class="hint">Total points follow the score. Raids won and stops follow the + Raid and + Stop buttons. Type raid points, jaafi points, failed raids, and the top names here.</p>
+          <div id="analysisFields"></div>
+        </section>
+      </section>
+
+      <section id="tab-ads" class="tab-panel" hidden>
+        <section class="card">
+          <label class="check"><input id="adsOn" type="checkbox" /> Show adverts with the score</label>
+          <label><span>Seconds on each advert</span><input id="adsSeconds" type="number" min="4" max="90" /></label>
+          <button type="button" class="btn" id="adsUnpin">Back to rotation</button>
+          <p class="hint">Adverts sit on the bottom right of the ticker while the score is up. They hide for lineup, Top 5, and the other full graphics. A PNG owner photo can be transparent so the person pops out of the panel.</p>
+          <div id="adsList"></div>
+        </section>
+      </section>
+
+      <section id="tab-logos" class="tab-panel" hidden>
+        <section class="card">
+          <label><span>Tournament logo link</span><input id="logoUrl" type="url" placeholder="https://" /></label>
+          <label><span>Or upload a small logo</span><input id="logoFile" type="file" accept="image/*" /></label>
+          <img id="logoPreview" class="preview-img" alt="" hidden />
+          <button type="button" class="btn" id="logoClear">Remove logo</button>
+          <p class="hint">Photos are shrunk before they are sent, so the overlay can update quickly. You can also paste an image link.</p>
+        </section>
+        <section class="card" id="sponsors"></section>
+      </section>
+
+      <section id="tab-settings" class="tab-panel" hidden>
+        <section class="card">
+          <label><span>Time zone for the ticker clock</span>
+            <select id="timezone">
+              <option value="Europe/London">England (Europe/London)</option>
+              <option value="Asia/Kolkata">India (Asia/Kolkata)</option>
+              <option value="Asia/Dubai">Dubai</option>
+              <option value="America/Toronto">Toronto</option>
+              <option value="America/New_York">New York</option>
+              <option value="UTC">UTC</option>
+            </select>
+          </label>
+          <label class="check"><input id="raidShow" type="checkbox" /> Show raid timer (30 sec)</label>
+          <div class="pair">
+            <button type="button" class="btn" data-act="raid-start">Start raid</button>
+            <button type="button" class="btn" data-act="raid-reset">Reset raid</button>
+          </div>
+          <label class="check"><input id="matchShow" type="checkbox" /> Show match timer</label>
+          <div class="pair">
+            <button type="button" class="btn" data-act="match-start">Start match clock</button>
+            <button type="button" class="btn" data-act="match-reset">Reset match clock</button>
+          </div>
+          <p class="hint">Both timers stay hidden until you turn them on. Punjab style usually does not need them.</p>
+        </section>
+        <section class="card">
+          <label><span>Change PIN</span><input id="pinNew" maxlength="8" inputmode="numeric" placeholder="Empty removes the PIN" /></label>
+          <button type="button" class="btn" id="pinSave">Save PIN</button>
+          <label><span>OBS overlay link</span><div class="link-box"><input id="overlayLink" readonly /><button type="button" data-copy="overlayLink">Copy</button></div></label>
+          <label><span>Preview link</span><div class="link-box"><input id="previewLink" readonly /><button type="button" data-copy="previewLink">Copy</button></div></label>
+          <p><a class="home" href="./">Home</a></p>
+        </section>
+      </section>
+    </main>
+
+    <div class="dock">
+      <button type="button" class="btn" id="undoBtn" data-act="undo">Undo</button>
+      <button type="button" class="btn danger" id="resetBtn" data-act="reset">Reset match</button>
+    </div>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="panel">
+      <p id="modalText">Are you sure?</p>
+      <div class="pair">
+        <button type="button" class="btn" id="modalNo">Cancel</button>
+        <button type="button" class="btn primary" id="modalYes">Yes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="vendor/mqtt.min.js"></script>
+  <script type="module" src="js/control.js"></script>
+</body>
+</html>

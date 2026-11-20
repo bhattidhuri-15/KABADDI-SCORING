@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="theme-color" content="#110e0b" />
+  <title>Kabaddi Live Scoreboard</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600;700&family=Noto+Sans+Gurmukhi:wght@600;700&family=Outfit:wght@500;600;700;800&family=Teko:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow">Live stream tool</p>
+    <h1>Kabaddi scoreboard</h1>
+    <p class="lede">Punjab style circle kabaddi. One link for OBS. One link for your phone. The score updates on the stream while you tap.</p>
+
+    <ol class="steps">
+      <li><b>1</b><span>Create a match</span></li>
+      <li><b>2</b><span>Add the overlay in OBS, size 1920×1080</span></li>
+      <li><b>3</b><span>Open the control link on your phone</span></li>
+    </ol>
+
+    <section class="card" id="createCard">
+      <h2>New match</h2>
+      <label>
+        <span>Tournament name</span>
+        <input id="tournament" maxlength="42" autocomplete="off" />
+      </label>
+      <p class="hint">This name shows on a strip above the scores. You can change it later on the control page.</p>
+      <label>
+        <span>PIN for the control page (optional)</span>
+        <input id="pin" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="Leave empty if you do not want a PIN" />
+      </label>
+      <button type="button" class="btn" id="create">Create match</button>
+      <p id="createStatus" class="status" role="status"></p>
+    </section>
+
+    <section class="card" id="links" hidden>
+      <h2>Your links</h2>
+      <p class="hint">The overlay link goes on the stream PC. The control link goes on the phone. They can be on different networks.</p>
+
+      <div class="link">
+        <div class="link-head">
+          <h3>OBS overlay</h3>
+          <span>Transparent background</span>
+        </div>
+        <div class="row">
+          <input id="overlayUrl" readonly />
+          <button type="button" data-copy="overlayUrl">Copy</button>
+        </div>
+        <a id="overlayOpen" href="#" target="_blank" rel="noreferrer">Open preview</a>
+      </div>
+
+      <div class="link">
+        <div class="link-head">
+          <h3>Phone control</h3>
+          <span>Big buttons</span>
+        </div>
+        <div class="row">
+          <input id="controlUrl" readonly />
+          <button type="button" data-copy="controlUrl">Copy</button>
+        </div>
+        <a id="controlOpen" href="#">Open control</a>
+      </div>
+      <p class="match-id">Match id: <b id="matchIdLabel"></b></p>
+    </section>
+
+    <section class="card">
+      <h2>Open a match you already made</h2>
+      <label>
+        <span>Match id</span>
+        <input id="existingId" maxlength="20" autocapitalize="off" autocomplete="off" placeholder="Paste the match id" />
+      </label>
+      <label>
+        <span>PIN, if you set one</span>
+        <input id="existingPin" inputmode="numeric" maxlength="8" autocomplete="off" />
+      </label>
+      <div class="row two">
+        <button type="button" class="btn secondary" id="openControl">Open control</button>
+        <button type="button" class="btn secondary" id="openOverlay">Open overlay</button>
+      </div>
+      <p id="existingError" class="error" hidden>That match id does not look right.</p>
+    </section>
+
+    <section class="card" id="lastCard" hidden>
+      <h2>Last match on this browser</h2>
+      <p id="lastText" class="hint"></p>
+      <div class="row two">
+        <a class="btn secondary" id="lastControl" href="#">Control</a>
+        <a class="btn secondary" id="lastOverlay" href="#">Overlay</a>
+      </div>
+    </section>
+  </main>
+  <script src="vendor/mqtt.min.js"></script>
+  <script type="module" src="js/landing.js"></script>
+</body>
+</html>

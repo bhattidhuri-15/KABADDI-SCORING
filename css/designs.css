@@ -1,0 +1,113 @@
+/* Complete looks for the ten selectable designs. EKF keeps css/ekf.css. */
+
+.theme-sheen .scorebug { filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.35)); }
+.theme-sheen .ticker .tier.main { background: linear-gradient(180deg, #fff, #f2f2f2); color: #141414; border-top: 4px solid var(--team-a); }
+.theme-sheen .ticker .tier.main .marquee-chunk { color: #141414; font-size: 40px; }
+.theme-sheen .ekf-intro, .theme-sheen .ekf-vs { background: #111; box-shadow: 0 0 0 3px #fff; }
+.theme-sheen .vcol { clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%); }
+.theme-sheen .ad-panel { background: linear-gradient(160deg, #111, var(--team-a)); }
+
+.theme-pulse .scorebug { gap: 8px; filter: none; }
+.theme-pulse .bug-wing, .theme-pulse .bug-mid { border-radius: 18px; clip-path: none; }
+.theme-pulse .bug-scores .score-num { border-radius: 50%; padding: 0 8px; box-shadow: 0 0 18px var(--accent); }
+.theme-pulse .ticker .tier.main { background: #1a0b22; box-shadow: 0 0 24px var(--accent); border-radius: 16px; }
+.theme-pulse .ticker .live { border-radius: 999px; clip-path: none; }
+.theme-pulse .ekf-intro, .theme-pulse .ekf-vs { background: radial-gradient(circle at 50% 40%, #3b1760, #14081c); border-radius: 28px; box-shadow: 0 0 40px var(--accent); }
+.theme-pulse .ekf-fed, .theme-pulse .big-score { text-shadow: 0 0 18px var(--accent); }
+.theme-pulse .vcol, .theme-pulse .top5-col { border-radius: 24px; clip-path: none; }
+.theme-pulse .ad-panel { border-radius: 18px; clip-path: none; box-shadow: 0 0 24px var(--ad, var(--accent)); }
+
+.theme-sweep .bug-wing { background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.28) 0 8px, transparent 8px 16px), linear-gradient(90deg, #111, var(--team-a)); }
+.theme-sweep .ticker .tier.main {
+  background: repeating-linear-gradient(115deg, #111 0 14px, #2a2a2a 14px 18px);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+}
+.theme-sweep .ticker .tier.main .marquee-chunk { color: var(--team-a); }
+.theme-sweep .ekf-intro, .theme-sweep .ekf-vs { background: repeating-linear-gradient(115deg, #111 0 16px, #222 16px 20px); box-shadow: 0 0 0 4px var(--team-a); }
+.theme-sweep .ekf-banner, .theme-sweep .ekf-vs-plate.team-a, .theme-sweep .ad-panel { background: var(--team-a); color: #111; }
+.theme-sweep .vcol, .theme-sweep .top5-col { clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); }
+
+.theme-slam .scorebug { gap: 12px; }
+.theme-slam .bug-wing, .theme-slam .bug-mid { clip-path: none; box-shadow: 8px 8px 0 #000; }
+.theme-slam .ticker .tier.main { background: #0a0a0a; border-left: 10px solid var(--team-a); box-shadow: 8px 8px 0 #000; }
+.theme-slam .ekf-intro, .theme-slam .ekf-vs, .theme-slam .analysis-card, .theme-slam .result-card {
+  background: #0a0a0a; box-shadow: 12px 12px 0 var(--team-a); border-radius: 0;
+}
+.theme-slam .vcol, .theme-slam .top5-col, .theme-slam .big-side { box-shadow: 10px 10px 0 #000; clip-path: none; }
+.theme-slam .ad-panel { box-shadow: 8px 8px 0 #000; clip-path: none; }
+
+.theme-depth .scorebug { transform: rotateX(12deg) rotateY(-16deg); }
+.theme-depth .ticker { transform: perspective(800px) rotateX(12deg); transform-origin: center bottom; }
+.theme-depth .ekf-intro, .theme-depth .ekf-vs, .theme-depth .big-frame, .theme-depth .analysis-card {
+  transform: perspective(900px) rotateX(8deg);
+  box-shadow: 0 18px 0 #000, 0 0 0 2px var(--accent);
+}
+.theme-depth .vcol, .theme-depth .top5-col { box-shadow: 0 12px 0 rgba(0,0,0,.55); }
+.theme-depth .ad { transform: perspective(700px) rotateY(-12deg); }
+
+.theme-cyber .scorebug, .theme-cyber .bug-wing, .theme-cyber .bug-mid {
+  background: #050510; clip-path: none; border: 2px solid var(--team-a); box-shadow: 0 0 16px var(--team-a);
+}
+.theme-cyber .bug-name, .theme-cyber .bug-scores .score-num, .theme-cyber .ekf-fed, .theme-cyber .big-score {
+  color: var(--team-a); text-shadow: 0 0 10px var(--team-a);
+}
+.theme-cyber .ticker .tier.main {
+  background: #050510; border: 1px solid var(--team-b); box-shadow: inset 0 0 24px rgba(57, 255, 20, 0.15);
+}
+.theme-cyber .ticker .tier.main .marquee-chunk { color: #d8ffe8; font-family: "Courier New", monospace; font-style: normal; letter-spacing: 0.08em; }
+.theme-cyber .ticker .live { background: transparent; color: var(--team-a); border: 1px solid var(--team-a); clip-path: none; }
+.theme-cyber .ekf-intro, .theme-cyber .ekf-vs, .theme-cyber .analysis-card, .theme-cyber .result-card {
+  background: repeating-linear-gradient(0deg, rgba(57,255,20,.05) 0 1px, transparent 1px 4px), #050510;
+  box-shadow: 0 0 0 1px var(--team-b), 0 0 30px rgba(255, 43, 214, 0.35);
+}
+.theme-cyber .vcol, .theme-cyber .top5-col { background: #070712; border: 1px solid var(--team-a); clip-path: none; }
+.theme-cyber .ad-panel { background: #050510; border: 1px solid var(--team-a); clip-path: none; color: #d8ffe8; }
+
+.theme-royal .scorebug { filter: none; }
+.theme-royal .bug-wing, .theme-royal .bug-mid { clip-path: none; border: 1px solid var(--team-a); box-shadow: inset 0 0 0 3px #3a2a10; }
+.theme-royal .bug-name, .theme-royal .ekf-fed, .theme-royal .big-team { font-family: "Times New Roman", serif; font-style: italic; letter-spacing: 0.08em; }
+.theme-royal .ticker .tier.main { background: #140e08; border-top: 2px solid var(--team-a); border-bottom: 2px solid var(--team-a); }
+.theme-royal .ticker .tier.main .marquee-chunk { color: #f8f1d8; font-family: "Times New Roman", serif; }
+.theme-royal .ticker .live { background: var(--team-a); color: #140e08; clip-path: none; }
+.theme-royal .ekf-intro, .theme-royal .ekf-vs, .theme-royal .analysis-card, .theme-royal .result-card {
+  background: #140e08; box-shadow: 0 0 0 2px var(--team-a), inset 0 0 0 8px #2a2112;
+}
+.theme-royal .ekf-banner, .theme-royal .ekf-vs-plate { background: transparent; color: var(--team-a); border: 1px solid var(--team-a); clip-path: none; }
+.theme-royal .vcol, .theme-royal .top5-col { border: 1px solid var(--team-a); clip-path: none; }
+.theme-royal .ad-panel { background: #140e08; border: 1px solid var(--team-a); clip-path: none; color: #f8f1d8; }
+
+.theme-fire .bug-wing, .theme-fire .big-side {
+  background-image: linear-gradient(160deg, #3a0a04, var(--team-a) 60%, var(--team-b));
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+.theme-fire .ticker .tier.main { background: linear-gradient(90deg, #3a0a04, #1a0603 40%, #3a0a04); box-shadow: 0 0 22px rgba(255, 90, 31, 0.45); }
+.theme-fire .ticker .tier.main .marquee-chunk { color: #ffe0b0; }
+.theme-fire .ticker .live { background: linear-gradient(#ffd000, #ff5a1f); color: #1a0603; }
+.theme-fire .ekf-intro, .theme-fire .ekf-vs, .theme-fire .analysis-card, .theme-fire .result-card {
+  background: radial-gradient(circle at 50% 100%, rgba(255,90,31,.45), transparent 55%), #1a0603;
+  box-shadow: 0 0 0 3px #ff5a1f;
+}
+.theme-fire .vcol, .theme-fire .top5-col { clip-path: polygon(0 10px, 100% 0, 100% 100%, 0 calc(100% - 10px)); }
+.theme-fire .ad-panel { background: linear-gradient(160deg, #3a0a04, #ff5a1f); }
+
+.theme-ice .scorebug { filter: none; }
+.theme-ice .bug-wing, .theme-ice .bug-mid {
+  background: linear-gradient(180deg, #ffffff, #d7ecff);
+  color: #071018;
+  clip-path: none;
+  border: 1px solid #9fd4ff;
+  box-shadow: inset 0 1px 0 #fff;
+}
+.theme-ice .bug-name, .theme-ice .bug-scores .score-num { color: #071018; text-shadow: none; }
+.theme-ice .ticker .tier.main { background: linear-gradient(180deg, #f7fbff, #d5ebff); color: #071018; border-top: 3px solid #7fd4ff; }
+.theme-ice .ticker .tier.main .marquee-chunk { color: #071018; }
+.theme-ice .ticker .live { background: #071018; color: #e7f5ff; clip-path: none; }
+.theme-ice .ekf-intro, .theme-ice .ekf-vs, .theme-ice .analysis-card, .theme-ice .result-card {
+  background: linear-gradient(180deg, #f7fbff, #d5ebff);
+  color: #071018;
+  box-shadow: 0 0 0 2px #9fd4ff, 0 20px 40px rgba(11, 58, 91, 0.15);
+}
+.theme-ice .ekf-fed, .theme-ice .ekf-vs-mark, .theme-ice .big-score, .theme-ice .analysis-title { color: #071018; }
+.theme-ice .ekf-banner { background: #071018; color: #e7f5ff; }
+.theme-ice .vcol, .theme-ice .top5-col { background: linear-gradient(#fff, #c5e4ff); color: #071018; clip-path: none; border: 1px solid #fff; }
+.theme-ice .ad-panel { background: linear-gradient(180deg, #fff, #b9ddff); color: #071018; clip-path: none; }
