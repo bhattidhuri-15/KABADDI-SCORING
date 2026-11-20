@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Kabaddi Control</title>
+<style>
+*{box-sizing:border-box}body{font-family:'Segoe UI',Arial,sans-serif;background:#0d0d1a;color:#eee;margin:0;padding:12px;max-width:700px;margin:0 auto}
+h1{text-align:center;color:#ffd700;font-size:22px}
+.scores{display:flex;justify-content:space-around;background:#1a1a2e;padding:12px;border-radius:10px;margin:10px 0;font-size:18px;font-weight:bold;border:2px solid #ffd700}
+.section{background:#16213e;border-radius:12px;padding:12px;margin:10px 0}
+h2{color:#ffd700;margin:0 0 8px;text-align:center;font-size:16px}
+.btns{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+button{padding:12px;font-size:15px;font-weight:bold;border:none;border-radius:8px;cursor:pointer;color:#fff}
+.plus{background:#00b894}.minus{background:#d63031}.blue{background:#0984e3}
+input{width:100%;padding:8px;margin:4px 0;border-radius:6px;border:none;background:#222;color:#fff}
+.status{text-align:center;color:#00b894;font-weight:bold;margin:8px 0}
+.link{text-align:center;background:#1a1a2e;padding:10px;border-radius:8px;margin-top:10px;font-size:13px}
+.link a{color:#ffd700}
+</style>
+</head>
+<body>
+<h1>Circle Kabaddi Live Control</h1>
+<div class="scores">
+  <div><span id="dA">Team A</span>: <span id="sA">0</span></div>
+  <div><span id="dB">Team B</span>: <span id="sB">0</span></div>
+</div>
+
+<div class="section">
+  <h2>Timer: <span id="tDisp">20:00</span></h2>
+  <div class="btns">
+    <button class="blue" onclick="socket.emit('timer',{action:'start'})">Start</button>
+    <button class="blue" onclick="socket.emit('timer',{action:'pause'})">Pause</button>
+    <button class="blue" onclick="socket.emit('timer',{action:'reset'})">Reset</button>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Team A</h2>
+  <input id="nA" placeholder="English Name">
+  <input id="nAp" placeholder="Punjabi Name">
+  <input id="lA" placeholder="Logo URL">
+  <div class="btns"><button class="plus" onclick="chg('A',1)">+1</button><button class="minus" onclick="chg('A',-1)">-1</button></div>
+</div>
+<div class="section">
+  <h2>Team B</h2>
+  <input id="nB" placeholder="English Name">
+  <input id="nBp" placeholder="Punjabi Name">
+  <input id="lB" placeholder="Logo URL">
+  <div class="btns"><button class="plus" onclick="chg('B',1)">+1</button><button class="minus" onclick="chg('B',-1)">-1</button></div>
+</div>
+
+<div class="section">
+  <h2>Graphics Control</h2>
+  <input id="tickerInput" placeholder="Ticker Text">
+  <div class="btns">
+    <button class="blue" onclick="toggleTicker()">Show/Hide Ticker</button>
+    <button class="blue" onclick="updateTicker()">Update Ticker</button>
+  </div>
+  <input id="pName" placeholder="Player Name">
+  <input id="pInfo" placeholder="Player Info">
+  <input id="pImg" placeholder="Player Image URL">
+  <div class="btns"><button class="blue" onclick="showPlayer()">Show Player Card</button><button class="blue" onclick="hidePlayer()">Hide Player</button></div>
+</div>
+
+<button class="blue" style="width:100%;margin:8px 0" onclick="updateTeams()">Update Teams</button>
+<button class="minus" style="width:100%" onclick="if(confirm('Reset?'))socket.emit('resetScores')">Reset Scores</button>
+<div class="status" id="status">Connected</div>
+<div class="link"><strong>Overlay Link:</strong><br><a id="ovLink" href="/overlay" target="_blank">/overlay</a></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket=io();
+const st=document.getElementById('status');
+socket.on('connect',()=>st.textContent='Connected ✓');
+socket.on('state',s=>{
+  document.getElementById('sA').textContent=s.teamA.score;
+  document.getElementById('sB').textContent=s.teamB.score;
+  document.getElementById('dA').textContent=s.teamA.name||'Team A';
+  document.getElementById('dB').textContent=s.teamB.name||'Team B';
+  document.getElementById('nA').value=s.teamA.name||'';
+  document.getElementById('nB').value=s.teamB.name||'';
+  document.getElementById('nAp').value=s.teamA.namePunjabi||'';
+  document.getElementById('nBp').value=s.teamB.namePunjabi||'';
+  document.getElementById('lA').value=s.teamA.logo||'';
+  document.getElementById('lB').value=s.teamB.logo||'';
+  document.getElementById('tDisp').textContent=s.timer||'20:00';
+});
+function chg(t,d){socket.emit('updateScore',{team:t,delta:d})}
+function updateTeams(){
+  socket.emit('updateTeams',{
+    teamAName:document.getElementById('nA').value,
+    teamBName:document.getElementById('nB').value,
+    teamANamePunjabi:document.getElementById('nAp').value,
+    teamBNamePunjabi:document.getElementById('nBp').value,
+    teamALogo:document.getElementById('lA').value,
+    teamBLogo:document.getElementById('lB').value
+  });
+  st.textContent='Updated!';
+}
+function toggleTicker(){socket.emit('toggleTicker')}
+function updateTicker(){socket.emit('setTicker',document.getElementById('tickerInput').value)}
+function showPlayer(){
+  socket.emit('showPlayer',{
+    name:document.getElementById('pName').value,
+    info:document.getElementById('pInfo').value,
+    img:document.getElementById('pImg').value
+  });
+}
+function hidePlayer(){socket.emit('hidePlayer')}
+document.getElementById('ovLink').href=location.origin+'/overlay';
+document.getElementById('ovLink').textContent=location.origin+'/overlay';
+</script>
+</body>
+</html>
