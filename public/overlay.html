@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kabaddi Overlay</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: transparent;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+    }
+    .scoreboard {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, rgba(10,10,30,0.92), rgba(30,10,50,0.95));
+      border: 3px solid #ffd700;
+      border-radius: 18px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      min-width: 480px;
+      color: white;
+    }
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 140px;
+    }
+    .logo {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffd700;
+      background: #222;
+      flex-shrink: 0;
+    }
+    .logo-placeholder {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #444, #222);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      border: 3px solid #ffd700;
+      color: #ffd700;
+      flex-shrink: 0;
+    }
+    .team-info {
+      overflow: hidden;
+      max-width: 110px;
+    }
+    .team-name-scroll {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scrollName 8s linear infinite;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .team-name-punjabi {
+      font-size: 12px;
+      color: #ffd700;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    @keyframes scrollName {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(0); }
+      80% { transform: translateX(-40%); }
+      100% { transform: translateX(0); }
+    }
+    .score {
+      font-size: 46px;
+      font-weight: 900;
+      color: #ffd700;
+      text-shadow: 2px 2px 6px #000;
+      min-width: 55px;
+      text-align: center;
+      line-height: 1;
+    }
+    .vs {
+      font-size: 18px;
+      color: #aaa;
+      font-weight: bold;
+      margin: 0 4px;
+    }
+    .scores {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scoreboard">
+    <div class="team">
+      <div id="logoA" class="logo-placeholder">A</div>
+      <div class="team-info">
+        <div class="team-name-scroll" id="nameA">TEAM A</div>
+        <span class="team-name-punjabi" id="nameA_pun">ਟੀਮ ਏ</span>
+      </div>
+    </div>
+    <div class="scores">
+      <div class="score" id="scoreA">0</div>
+      <div class="vs">-</div>
+      <div class="score" id="scoreB">0</div>
+    </div>
+    <div class="team">
+      <div class="team-info" style="text-align:right;">
+        <div class="team-name-scroll" id="nameB">TEAM B</div>
+        <span class="team-name-punjabi" id="nameB_pun">ਟੀਮ ਬੀ</span>
+      </div>
+      <div id="logoB" class="logo-placeholder">B</div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function updateLogo(id, url, fallback) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (url && url.trim()) {
+        if (el.tagName !== 'IMG') {
+          el.outerHTML = `<img id="${id}" src="${url}" class="logo" alt="">`;
+        } else if (el.src !== url && !el.src.endsWith(url)) {
+          el.src = url;
+        }
+      } else {
+        if (el.tagName === 'IMG') {
+          el.outerHTML = `<div id="${id}" class="logo-placeholder">${fallback}</div>`;
+        }
+      }
+    }
+
+    socket.on('state', (state) => {
+      document.getElementById('scoreA').textContent = state.teamA.score;
+      document.getElementById('scoreB').textContent = state.teamB.score;
+
+      // English name (scrolling)
+      const nameA = state.teamA.name || 'TEAM A';
+      const nameB = state.teamB.name || 'TEAM B';
+      document.getElementById('nameA').textContent = nameA;
+      document.getElementById('nameB').textContent = nameB;
+
+      // Punjabi name (optional, from state or default)
+      document.getElementById('nameA_pun').textContent = state.teamA.namePunjabi || 'ਟੀਮ ਏ';
+      document.getElementById('nameB_pun').textContent = state.teamB.namePunjabi || 'ਟੀਮ ਬੀ';
+
+      updateLogo('logoA', state.teamA.logo, 'A');
+      updateLogo('logoB', state.teamB.logo, 'B');
+    });
+  </script>
+</body>
+</html>
