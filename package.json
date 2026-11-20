@@ -1,0 +1,8 @@
+{
+  "name": "kabaddi-live-scoreboard",
+  "private": true,
+  "description": "Realtime Kabaddi scoreboard for OBS and a phone controller",
+  "scripts": {
+    "start": "python3 -m http.server 8741 --bind 0.0.0.0"
+  }
+}
